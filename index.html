@@ -1,21 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stopwatch</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="wrapper">
-      <h1>Stopwatch</h1>
-      <div id="display">00:00:00</div>
-      <button id="start">Start</button>
-      <button id="pause">Pause</button>
-      <button id="reset">Reset</button>
-      <button id="lap">Lap</button>
-      <ul id="laps"></ul>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Stop-Watch by Akash Chandra Verma</title>
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- External CSS File Link -->
+  <link rel="stylesheet" href="./style.css"/>
+
+  <!-- Favicon Icon-->
+  <link rel="icon"  href="/data/logoo.jpeg"  type="image/X-icon" />
+
+  <!-- FontAwesome CDN-->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+</head>
+
+<body bgcolor="black">
+    <body>
+        <div class="maintitle">
+          <img src="data/watch1.gif" style="height: 5rem; width: 5rem;margin-right:1rem; font-weight:bold" alt="">
+          <span id="title1">Stop Watch</span>
+        </div>
+  <div id="container">
+    <div id="time">
+      <span>
+        <span class="digit" id="hr">00</span>
+        <span class="txt">Hr</span>
+      </span>
+      <span>
+        <span class="digit" id="min">00</span>
+        <span class="txt">Min</span>
+      </span>
+      <span>
+        <span class="digit" id="sec">00</span>
+        <span class="txt">Sec</span>
+      </span>
+      <span>
+        <span class="digit" id="count">00</span>
+        <span class="txt">Ms</span>
+      </span>
     </div>
-    <script src="app.js"></script>
-  </body>
+
+    <div id="btn-container">
+      <button class="buttons" id="start" onclick="start()">
+        <i class="fas fa-play-circle"></i> Start
+      </button>
+      <button class="buttons" id="reset" onclick="reset()">
+        <i class="fas fa-undo"></i> Reset
+      </button>
+      <button class="buttons" id="lap" onclick="lap()">
+        <i class="fas fa-stopwatch"></i> Lap
+      </button>
+      <button class="buttons" id="clearlap" onclick="clearLap()">
+        <i class="fas fa-trash"></i> Clear Lap
+      </button>
+    </div>
+
+    <div id="record-container">
+      <table id="record-table">
+        <tr>
+          <th>Lap Number</th>
+          <th>Time</th>
+          <th>Diff</th>
+        </tr>
+        <tbody id="record-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="myinfo">
+    <p class="author">By Akash Chandra Verma</p>
+    <div class="social-links-container">
+        <ul class="social-links">
+            <li class="hov">
+                <a href="https://github.com/Akki-soni">
+                    <img class="link" src="data/github.png" alt="kk" />
+                </a>
+            </li>
+            <li class="hov">
+                <a href="https://www.linkedin.com/in/akashchandraverma/">
+                    <img class="link" src="data/in.png" alt="LinkedIn" />
+                </a>
+            </li>
+            <li class="hov">
+                <a href="https://www.instagram.com/akki_214g/">
+                    <img class="link" src="data/insta.png" alt="Instagram" />
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+  <script src="app.js"></script>
+</body>
+
 </html>

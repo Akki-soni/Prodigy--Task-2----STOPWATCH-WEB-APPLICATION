@@ -1,28 +1,220 @@
-body {
-  font-family: Arial, sans-serif;
-}
-
-.wrapper {
-  align-items: center;
+.maintitle {
+  display: flex;
+  padding: 10px;
   justify-content: center;
-  margin: 280px;
-  margin-left: 500px;
-}
-
-#display {
-  font-size: 48px;
-  font-weight: bold;
+  align-items: center;
   margin-bottom: 20px;
 }
 
-button {
-  width: 100px;
-  height: 30px;
-  margin: 10px;
+.maintitle img {
+  height: 3rem;
+  width: 3rem;
+  margin-right: 1rem;
+  font-weight: bold;
+}
+#title1 {
+  color: burlywood;
+  font-weight: bold;
+  font-size: 80px;
 }
 
-#laps {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+#container {
+  display: flex;
+  flex-direction: column;
+  padding: 80px;
+  margin-top: 10;
+  align-items: center; /* Center horizontally */
+  height: auto;
+  color: #171818;
+}
+
+#time {
+  display: flex;
+  justify-content: center; /* Center the timer elements */
+  align-items: center; /* Align timer elements vertically */
+  margin-bottom: 20px; /* Add some space below the timer */
+}
+
+.digit {
+  font-size: 150px;
+  font-family: "digital-7";
+  color: #40ced6;
+}
+
+.txt {
+  font-size: 40px;
+  font-weight: bold;
+  color: rgb(194, 201, 147);
+}
+
+#btn-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+
+.buttons {
+  padding: 7px 25px;
+  font-size: 15px;
+  margin: 4px 10px;
+  color: rgb(62, 134, 212);
+  border: 0px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #2c3434;
+}
+
+#start {
+  color: hsl(127, 100%, 57%);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#start:hover {
+  color: #000000;
+  background: hsl(131, 100%, 69%);
+  box-shadow: 0 0 10px hsl(151, 88%, 70%), 0 0 40px hsl(159, 93%, 77%),
+    0 0 80px hsl(157, 96%, 72%);
+  transition-delay: 0.001s;
+  font-size: large;
+}
+
+#reset {
+  color: hwb(294 4% 20%);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#reset:hover {
+  color: #000000;
+  background: hwb(277 6% 7%);
+  box-shadow: 0 0 10px #416fc0, 0 0 40px #416fc0, 0 0 80px #416fc0;
+  transition-delay: 0.001s;
+  font-size: large;
+}
+
+#lap {
+  color: hwb(67 20% 3%);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#lap:hover {
+  color: #000000;
+  background: hwb(61 31% 0%);
+  box-shadow: 0 0 10px hwb(68 57% 0%), 0 0 40px hwb(68 54% 0%),
+    0 0 80px hwb(70 63% 1%);
+  transition-delay: 0.001s;
+  font-size: large;
+}
+
+#clearlap {
+  color: rgb(255, 71, 39);
+  font-weight: bold;
+  font-size: 20px;
+}
+
+#clearlap:hover {
+  color: #000000;
+  background: rgb(255, 89, 38);
+  box-shadow: 0 0 10px rgb(255, 118, 63), 0 0 40px rgb(255, 106, 103),
+    0 0 80px rgb(255, 137, 104);
+  transition-delay: 0.001s;
+  font-size: large;
+}
+
+#record-container {
+  display: none;
+  margin-top: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+#record-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 50px auto;
+}
+
+#record-table th,
+td,
+tr {
+  text-align: center;
+  border-radius: 3px;
+  padding: 10px 25px;
+  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+
+tr {
+  background-color: #f1e6e6f6;
+  margin-bottom: 25px;
+  font-family: "Times New Roman", Times, serif;
+}
+
+th {
+  background-color: #95a5a6;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.myinfo {
+  text-align: center;
+}
+
+.author {
+  color: #1ab587;
+  font-size: 1.5rem;
+  display: inline-block;
+  font-weight: bold;
+  margin-bottom: 0px;
+}
+.author:hover {
+  border-radius: 8px;
+  color: #000000;
+  background: rgb(255, 89, 38);
+  box-shadow: 0 0 10px rgb(255, 118, 63), 0 0 40px rgb(255, 106, 103),
+    0 0 80px rgb(255, 137, 104);
+  transition-delay: 0.001s;
+}
+.social-links {
+  list-style: none; /* Remove bullet points */
+  padding: 0; /* Remove padding */
+  display: flex; /* Use flexbox for horizontal alignment */
+  justify-content: center; /* Center the icons */
+}
+
+.social-links li {
+  margin: 0 10px;
+}
+
+.link {
+  width: 40px; /* Set a fixed width for the icons */
+  height: auto; /* Maintain aspect ratio */
+  transition: transform 0.2s; /* Smooth transition for transform */
+  animation: beat 1.5s infinite; /* Apply the beat animation continuously */
+  animation-timing-function: ease-in-out; /* Smooth animation */
+}
+
+@keyframes beat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.link:hover {
+  background-color: aquamarine;
+  border-radius: 20px;
+  box-shadow: 0 0 10px hsl(151, 88%, 70%), 0 0 40px hsl(159, 93%, 77%),
+    0 0 80px hsl(157, 96%, 72%);
+  transition-delay: 0.03s;
 }

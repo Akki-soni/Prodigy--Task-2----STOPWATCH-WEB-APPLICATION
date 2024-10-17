@@ -1,51 +1,178 @@
-let startTime = 0;
-let currentTime = 0;
-let intervalId = null;
-let lapCount = 0;
+var hr = 0;
+var min = 0;
+var sec = 0;
+var count = 0;
 
-document.getElementById("start").addEventListener("click", startTimer);
-document.getElementById("pause").addEventListener("click", pauseTimer);
-document.getElementById("reset").addEventListener("click", resetTimer);
-document.getElementById("lap").addEventListener("click", lapTimer);
+var prev_hr = 0;
+var prev_min = 0;
+var prev_sec = 0;
+var prev_count = 0;
 
-function startTimer() {
-  startTime = Date.now() - currentTime;
-  intervalId = setInterval(updateTimer, 100); // update every 100ms for better accuracy
+var diff_hr = 0;
+var diff_min = 0;
+var diff_sec = 0;
+var diff_count = 0;
+
+var timer = false;
+var lapCounter = 1;
+const buttonClickSound = new Audio("data/all.mp3");
+const clearlapSound = new Audio("data/lap.mp3");
+const resetSound = new Audio("data/reset.mp3");
+function $id(id) {
+  return document.getElementById(id);
 }
 
-function pauseTimer() {
-  clearInterval(intervalId);
+function start() {
+  buttonClickSound.play();
+  if (!timer) {
+    timer = true;
+    $id("start").innerHTML = '<i class="far fa-pause-circle"></i> Pause';
+    stopwatch();
+  } else {
+    timer = false;
+    $id("start").innerHTML = '<i class="far fa-play-circle"></i> Start';
+  }
 }
 
-function resetTimer() {
-  clearInterval(intervalId);
-  currentTime = 0;
-  lapCount = 0;
-  document.getElementById("display").innerHTML = "00:00:00";
-  document.getElementById("laps").innerHTML = "";
+function reset() {
+  $id("record-container").style.display = "none";
+  resetSound.play();
+  timer = false;
+  $id("start").innerHTML = '<i class="far fa-play-circle"></i> Start';
+
+  hr = 0;
+  min = 0;
+  sec = 0;
+  count = 0;
+
+  $id("hr").innerHTML = "00";
+  $id("min").innerHTML = "00";
+  $id("sec").innerHTML = "00";
+  $id("count").innerHTML = "00";
+
+  $id("record-table-body").innerHTML = "";
+  lapCounter = 1;
 }
 
-function lapTimer() {
-  lapCount++; // increment lapCount before displaying
-  const lapTime = formatTime(currentTime);
-  const lapElement = document.createElement("li");
-  lapElement.innerHTML = `Lap ${lapCount}: ${lapTime}`;
-  document.getElementById("laps").appendChild(lapElement);
+let timeoutId;
+function stopwatch() {
+  clearTimeout(timeoutId);
+
+  if (timer == true) count = count + 1;
+
+  if (count == 99) {
+    sec = sec + 1;
+    count = 0;
+  }
+  if (sec == 59) {
+    min = min + 1;
+    sec = 0;
+  }
+  if (min == 59) {
+    hr = hr + 1;
+    min = 0;
+    sec = 0;
+  }
+
+  var hrString = hr;
+  var minString = min;
+  var secString = sec;
+  var countString = count;
+
+  if (hr < 10) {
+    hrString = "0" + hrString;
+  }
+  if (min < 10) {
+    minString = "0" + minString;
+  }
+  if (sec < 10) {
+    secString = "0" + secString;
+  }
+  if (count < 10) {
+    countString = "0" + countString;
+  }
+
+  $id("hr").innerHTML = hrString;
+  $id("min").innerHTML = minString;
+  $id("sec").innerHTML = secString;
+  $id("count").innerHTML = countString;
+  timeoutId = setTimeout("stopwatch()", 10);
 }
 
-function updateTimer() {
-  currentTime = Date.now() - startTime;
-  document.getElementById("display").innerHTML = formatTime(currentTime);
+function getdiff() {
+  diff_hr = hr - prev_hr;
+  diff_min = min - prev_min;
+  if (diff_min < 0) {
+    diff_min += 60;
+    diff_hr -= 1;
+  }
+  diff_sec = sec - prev_sec;
+  if (diff_sec < 0) {
+    diff_sec += 60;
+    diff_min -= 1;
+  }
+  diff_count = count - prev_count;
+  if (diff_count < 0) {
+    diff_count += 100;
+    diff_sec -= 1;
+  }
+
+  prev_count = count;
+  prev_sec = sec;
+  prev_min = min;
+  prev_hr = hr;
 }
 
-function formatTime(time) {
-  const hours = Math.floor(time / 3600000);
-  const minutes = Math.floor((time % 3600000) / 60000);
-  const seconds = Math.floor((time % 60000) / 1000);
-  const milliseconds = Math.floor((time % 1000) / 100); // add milliseconds if needed
-  return `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+function lap() {
+  buttonClickSound.play();
+  if (timer) {
+    $id("record-container").style.display = "block";
+    getdiff();
+
+    var lap_time =
+      $id("hr").innerHTML +
+      ":" +
+      $id("min").innerHTML +
+      ":" +
+      $id("sec").innerHTML +
+      ":" +
+      $id("count").innerHTML;
+    const table = $id("record-table-body");
+    const row = table.insertRow(0);
+    const no_cell = row.insertCell(0);
+    const time_cell = row.insertCell(1);
+    const diff_cell = row.insertCell(2);
+
+    no_cell.innerHTML = lapCounter;
+    time_cell.innerHTML = lap_time;
+
+    var hrString = diff_hr;
+    var minString = diff_min;
+    var secString = diff_sec;
+    var countString = diff_count;
+
+    if (diff_hr < 10) {
+      hrString = "0" + hrString;
+    }
+    if (diff_min < 10) {
+      minString = "0" + minString;
+    }
+    if (diff_sec < 10) {
+      secString = "0" + secString;
+    }
+    if (diff_count < 10) {
+      countString = "0" + countString;
+    }
+    diff_cell.innerHTML =
+      hrString + ":" + minString + ":" + secString + ":" + countString;
+
+    lapCounter++;
+  }
 }
 
-function padZero(value) {
-  return (value < 10 ? "0" : "") + value;
+function clearLap() {
+  $id("record-container").style.display = "none";
+  clearlapSound.play();
+  $id("record-table-body").innerHTML = "";
+  lapCounter = 1;
 }
