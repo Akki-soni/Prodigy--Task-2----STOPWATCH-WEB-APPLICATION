@@ -35,7 +35,7 @@
 
 ## 🌟 Screenshots
 
-![Stopwatch Screenshot](data/forreadme.png)
+![Stopwatch Screenshot](data/Screenshot.png)
 
 ## 🔗 Live Demo
 
